@@ -1,26 +1,24 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import CounterContainer from "./CounterContainer";
+import Container from 'react-bootstrap/Container';
+import Format from "./Format";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
-//create your first component
 const Home = () => {
+	const [targetTime, setTargetTime] = useState(null);
+	const inputRef = useRef(null);
+  
+	const handleSubmit = (e) => {
+	  e.preventDefault();
+	  const inputValue = inputRef.current.value;
+	  setTargetTime(inputValue);
+	};
+  
 	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
+	  <Container className="text-center">
+		<CounterContainer targetTime={targetTime} />
+		<Format setTargetTime={setTargetTime} inputRef={inputRef} onSubmit={handleSubmit} />
+	  </Container>
 	);
-};
+  };
 
 export default Home;
